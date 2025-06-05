@@ -42,12 +42,16 @@
     "tailwindcss": "^4.1.8"
   },
   "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
     "axios": "^1.9.0",
     "cors": "^2.8.5",
     "electron-squirrel-startup": "^1.0.1",
     "fs": "^0.0.1-security",
     "multer": "^2.0.1",
     "openai": "^5.1.0",
+    "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "socket.io": "^4.8.1",
