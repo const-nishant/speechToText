@@ -9,7 +9,7 @@ rules.push({
       loader: "postcss-loader",
       options: {
         postcssOptions: {
-          plugins: [require("@tailwindcss/postcss")(), require("autoprefixer")]
+          plugins: [require("@tailwindcss/postcss")(), require("autoprefixer")],
         },
       },
     },
@@ -18,6 +18,7 @@ rules.push({
 
 module.exports = {
   // Put your normal webpack config below here
+
   module: {
     rules,
   },

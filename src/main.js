@@ -20,6 +20,19 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
+  mainWindow.webContents.session.webRequest.onHeadersReceived(
+    (details, callback) => {
+      callback({
+        responseHeaders: {
+          ...details.responseHeaders,
+          "Content-Security-Policy": [
+            "default-src 'self'; connect-src 'self' http://localhost:3001 ws://localhost:3000 ws://localhost:3001; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline';",
+          ],
+        },
+      });
+    }
+  );
+
   // Open the DevTools.
   //TODO: comment this line out in production !!
   mainWindow.webContents.openDevTools();
