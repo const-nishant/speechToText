@@ -13,15 +13,19 @@ const FileUpload = ({ onFileUpload, isProcessing, selectedLanguage }) => {
         file.name.toLowerCase().endsWith(".mp3") ||
         file.name.toLowerCase().endsWith(".wav");
 
-      onFileUpload(file);
       if (isValid) {
+        onFileUpload(file);
+        // Clear file input after upload
+        event.target.value = "";
       } else {
         alert("Please select a valid MP3 or WAV file.");
+        event.target.value = "";
       }
     }
   };
 
   const handleUploadClick = () => {
+    fileInputRef.current?.value && (fileInputRef.current.value = "");
     fileInputRef.current?.click();
   };
 

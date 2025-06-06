@@ -111,6 +111,7 @@ export const App = () => {
 
   const handleClearTranscript = () => {
     setTranscript("");
+    
   };
 
   const handleCopy = async () => {
