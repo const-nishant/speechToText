@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 const FileUpload = ({ onFileUpload, isProcessing, selectedLanguage }) => {
   const fileInputRef = useRef(null);
+  const [dragActive, setDragActive] = useState(false);
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
@@ -29,6 +30,39 @@ const FileUpload = ({ onFileUpload, isProcessing, selectedLanguage }) => {
     fileInputRef.current?.click();
   };
 
+  // --- Drag and Drop Handlers ---
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const file = e.dataTransfer.files[0];
+      const validTypes = ["audio/mp3", "audio/wav", "audio/mpeg"];
+      const isValid =
+        validTypes.includes(file.type) ||
+        file.name.toLowerCase().endsWith(".mp3") ||
+        file.name.toLowerCase().endsWith(".wav");
+
+      if (isValid) {
+        onFileUpload(file);
+      } else {
+        alert("Please select a valid MP3 or WAV file.");
+      }
+    }
+  };
+
   return (
     <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
       <h3 className="file-upload-title">Upload Audio File</h3>
@@ -37,6 +71,16 @@ const FileUpload = ({ onFileUpload, isProcessing, selectedLanguage }) => {
         className="file-upload-container"
         onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#60A5FA")} // blue-400
         onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#D1D5DB")}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        style={{
+          border: dragActive ? "2px solid #2563EB" : "2px dashed #D1D5DB",
+          borderRadius: "0.5rem",
+          padding: "2rem",
+          background: dragActive ? "#EFF6FF" : "#fff",
+          transition: "border 0.2s, background 0.2s",
+        }}
       >
         <input
           ref={fileInputRef}
@@ -69,7 +113,9 @@ const FileUpload = ({ onFileUpload, isProcessing, selectedLanguage }) => {
               </button>
             </div>
             <p style={{ color: "#4B5563", marginTop: "1rem" /* gray-600 */ }}>
-              Support for MP3 and WAV files up to 50MB
+              {dragActive
+                ? "Drop your audio file here"
+                : "Support for MP3 and WAV files up to 50MB"}
             </p>
           </div>
         ) : (
