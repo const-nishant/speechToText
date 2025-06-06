@@ -10,7 +10,14 @@ const languages = [
 
 const LanguageSelector = ({ selectedLanguage, onLanguageChange }) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        alignItems: "center",
+      }}
+    >
       <h3 className="language-title">Select Language</h3>
 
       <div className="language-buttons">
