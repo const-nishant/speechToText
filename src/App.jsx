@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
 import ModeToggle from "./components/ModeToggle.jsx";
 import LanguageSelector from "./components/LanguageSelector.jsx";
 import RecordingControls from "./components/RecordingControls.jsx";
 import FileUpload from "./components/FileUpload.jsx";
+import TranscriptDisplay from "./components/TranscriptDisplay.jsx";
 
 export const App = () => {
   const [mode, setMode] = useState("realtime");
@@ -12,17 +13,21 @@ export const App = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const fileInputRef = useRef(null);
-
   const [language, setLanguage] = useState("en");
-  const [tab, setTab] = useState("record"); // 'record' or 'upload'
   const mediaRecorderRef = useRef(null);
   const socketRef = useRef(null);
+  // When transcript arrives, stop processing
+  useEffect(() => {
+    if (transcript && transcript.trim() !== "") {
+      setIsProcessing(false);
+    }
+  }, [transcript]);
 
   // Start recording and streaming audio to backend
   const startRecording = async () => {
     setTranscript("");
     setIsRecording(true);
+    setIsProcessing(false); // Not processing while recording
     console.log("Recording started in language:", selectedLanguage);
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const mediaRecorder = new MediaRecorder(stream);
@@ -63,6 +68,7 @@ export const App = () => {
       mediaRecorderRef.current.stop();
     }
     setIsRecording(false);
+    setIsProcessing(true); // Start processing after recording stops
     if (socketRef.current) {
       socketRef.current.emit("stop-audio-stream", { language });
     }
@@ -95,14 +101,6 @@ export const App = () => {
       setTranscript("Error processing file.");
     }
   };
-
-  const languages = [
-    { code: "en", name: "English", flag: "🇺🇸" },
-    { code: "es", name: "Spanish", flag: "🇪🇸" },
-    { code: "fr", name: "French", flag: "🇫🇷" },
-    { code: "hi", name: "Hindi", flag: "🇮🇳" },
-    { code: "zh", name: "Mandarin", flag: "🇨🇳" },
-  ];
 
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
@@ -148,14 +146,6 @@ export const App = () => {
     // link.click();
     // link.remove();
     // window.URL.revokeObjectURL(url);
-  };
-
-  const getPlaceholderText = () => {
-    if (isRecording) return "Listening... Transcript will appear here.";
-    if (isProcessing) return "Processing audio file...";
-    if (mode === "realtime")
-      return 'Click "Start Recording" to begin transcription.';
-    return "Upload an audio file to see the transcript here.";
   };
 
   return (
@@ -229,133 +219,16 @@ export const App = () => {
             )}
           </div>
 
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: "1.125rem",
-                  fontWeight: "600",
-                  color: "#1f2937",
-                }}
-              >
-                Transcript
-              </h3>
-              {transcript && (
-                <button
-                  onClick={handleClearTranscript}
-                  aria-label="Clear transcript"
-                  style={{
-                    color: "#6b7280",
-                    fontSize: "0.875rem",
-                    fontWeight: "500",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#dc2626")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#6b7280")
-                  }
-                >
-                  Clear
-                </button>
-              )}
-            </div>
+          {/* --- Transcript Display --- */}
+          <TranscriptDisplay
+            transcript={transcript}
+            isRecording={isRecording}
+            isProcessing={isProcessing}
+            mode={mode}
+            onClear={handleClearTranscript}
+          />
 
-            <div
-              style={{
-                border: "1px solid #e5e7eb",
-                borderRadius: "0.5rem",
-                padding: "1.5rem",
-                minHeight: "12rem",
-                backgroundColor: "#f9fafb",
-              }}
-            >
-              {transcript ? (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1rem",
-                  }}
-                >
-                  <p
-                    style={{
-                      color: "#1f2937",
-                      lineHeight: "1.625",
-                      whiteSpace: "pre-wrap",
-                    }}
-                  >
-                    {transcript}
-                  </p>
-                  {isRecording && (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.5rem",
-                        color: "#2563eb",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: "0.5rem",
-                          height: "0.5rem",
-                          backgroundColor: "#2563eb",
-                          borderRadius: "9999px",
-                          animation: "bounce 1.5s infinite",
-                        }}
-                      ></div>
-                      <div
-                        style={{
-                          width: "0.5rem",
-                          height: "0.5rem",
-                          backgroundColor: "#2563eb",
-                          borderRadius: "9999px",
-                          animation: "bounce 1.5s infinite",
-                          animationDelay: "0.1s",
-                        }}
-                      ></div>
-                      <div
-                        style={{
-                          width: "0.5rem",
-                          height: "0.5rem",
-                          backgroundColor: "#2563eb",
-                          borderRadius: "9999px",
-                          animation: "bounce 1.5s infinite",
-                          animationDelay: "0.2s",
-                        }}
-                      ></div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div
-                  style={{
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <p style={{ color: "#6b7280", textAlign: "center" }}>
-                    {getPlaceholderText()}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-
+          {/* --- Export Options and other sections remain unchanged --- */}
           {transcript && (
             <div
               style={{ borderTop: "1px solid #e5e7eb", paddingTop: "1.5rem" }}
@@ -434,12 +307,6 @@ export const App = () => {
               </div>
             </div>
           )}
-        </div>
-
-        <div
-          style={{ textAlign: "center", marginTop: "2rem", color: "#6b7280" }}
-        >
-          <p>Supports English, Spanish, French, Hindi, and Mandarin</p>
         </div>
       </div>
     </div>
