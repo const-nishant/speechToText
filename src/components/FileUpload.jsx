@@ -13,8 +13,8 @@ const FileUpload = ({ onFileUpload, isProcessing, selectedLanguage }) => {
         file.name.toLowerCase().endsWith(".mp3") ||
         file.name.toLowerCase().endsWith(".wav");
 
+      onFileUpload(file);
       if (isValid) {
-        onFileUpload(file);
       } else {
         alert("Please select a valid MP3 or WAV file.");
       }

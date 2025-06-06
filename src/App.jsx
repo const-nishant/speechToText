@@ -69,32 +69,30 @@ export const App = () => {
   };
 
   // Handle file upload to backend
-  const handleFileUpload = async (file) => {
-    const file = event.target.files[0];
-    if (file) {
-      const validTypes = ["audio/mp3", "audio/wav", "audio/mpeg"];
-      if (
-        validTypes.includes(file.type) ||
-        file.name.toLowerCase().endsWith(".mp3") ||
-        file.name.toLowerCase().endsWith(".wav")
-      ) {
-        setTranscript("Processing...");
-        const formData = new FormData();
-        formData.append("audio", file);
-        formData.append("language", language);
+  const handleFileUpload = async (event) => {
+    let file;
+    // Support both direct file and event from <input>
+    if (event && event.target && event.target.files) {
+      file = event.target.files[0];
+    } else if (event instanceof File) {
+      file = event;
+    } else {
+      return;
+    }
+    if (!file) return;
+    setTranscript("Processing...");
+    const formData = new FormData();
+    formData.append("audio", file);
+    formData.append("language", language);
 
-        try {
-          const res = await axios.post(
-            "http://localhost:3001/api/v1/upload",
-            formData
-          );
-          setTranscript(res.data.transcript);
-        } catch (err) {
-          setTranscript("Error processing file.");
-        }
-      } else {
-        alert("Please select a valid MP3 or WAV file.");
-      }
+    try {
+      const res = await axios.post(
+        "http://localhost:3001/api/v1/upload",
+        formData
+      );
+      setTranscript(res.data.transcript);
+    } catch (err) {
+      setTranscript("Error processing file.");
     }
   };
 
