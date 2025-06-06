@@ -1,3 +1,195 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.25rem);
+  }
+}
+
+.transcript-clear-button {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2563eb;
+}
+.loading-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: "#2563eb";
+  border-radius: "9999px";
+  animation: "bounce 1.5s infinite";
+}
+.transcript-container {
+  border: "1px solid #e5e7eb";
+  border-radius: "0.5rem";
+  padding: "1.5rem";
+  min-height: "12rem";
+  background-color: "#f9fafb";
+}
+.animate-pulse {
+  margin-top: "1.5rem";
+  display: "flex";
+  align-items: "center";
+  justify-content: "center";
+  gap: "0.5rem";
+  color: "#DC2626";
+}
+.animate-spin {
+  width: "0.75rem";
+  height: "0.75rem";
+  background-color: "#DC2626";
+  border-radius: "9999px";
+  animation: "pulse 1.5s infinite";
+}
+.stop-recording-button {
+  background-color: #dc2626; /* red-600 */
+  color: white;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  transform: scale(1);
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: none;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+
+.start-recording-button {
+  background-color: #16a34a;
+  color: white;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  transform: scale(1);
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: none;
+  cursor: pointer;
+}
+.recording-icon {
+  width: "1.5rem";
+  height: "1.5rem";
+  background-color: "white";
+  border-radius: "0.125rem";
+}
+
+.recording-tile {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+.language-tile {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+}
+
+.language-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.upload-button {
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.progress-bar {
+  background-color: #2563eb;
+  height: 100%;
+  border-radius: 9999px;
+  width: 60%;
+  animation: pulse 1.5s infinite;
+}
+
+.progress {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  height: 0.5rem;
+  margin-top: 1rem;
+}
+
+.file-upload-container {
+  border: 2px dashed #d1d5db; /*gray-300*/
+  border-radius: 0.5rem;
+  padding: 2rem;
+  transition: border-color 0.2s ease-in-out;
+}
+.file-upload-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937; /* Tailwind's gray-800 */
+  margin-bottom: 1.5rem;
+}
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #4b5563; /* gray-600 */
+  color: #ffffff;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.save-button {
+  display: flex;
+  align-items: center;
+  gap: "0.5rem";
+  background-color: "#16A34A"; /*green-600*/
+  color: "#FFFFFF";
+  font-weight: "500";
+  padding: "0.5rem 1rem";
+  border-radius: "0.5rem";
+  transition: "all 0.2s ease";
+  cursor: "pointer";
+}

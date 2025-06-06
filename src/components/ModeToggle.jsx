@@ -2,27 +2,46 @@ import React from "react";
 
 const ModeToggle = ({ mode, onModeChange }) => {
   return (
-    <div className="flex justify-center">
-      <div className="bg-gray-100 p-1 rounded-lg flex">
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          backgroundColor: "#F3F4F6", // Tailwind's gray-100
+          padding: "0.25rem",
+          borderRadius: "0.5rem",
+          display: "flex",
+        }}
+      >
         <button
           onClick={() => onModeChange("realtime")}
-          className={`px-6 py-2 rounded-md font-medium transition-all duration-200 ${
-            mode === "realtime"
-              ? "bg-blue-600 text-white shadow-md"
-              : "text-gray-600 hover:text-gray-800"
-          }`}
           aria-pressed={mode === "realtime"}
+          style={{
+            padding: "0.5rem 1.5rem",
+            borderRadius: "0.375rem",
+            fontWeight: 500,
+            transition: "all 0.2s",
+            cursor: "pointer",
+            backgroundColor: mode === "realtime" ? "#2563EB" : "transparent", // blue-600
+            color: mode === "realtime" ? "#FFFFFF" : "#4B5563", // white or gray-600
+            boxShadow:
+              mode === "realtime" ? "0 1px 3px rgba(0, 0, 0, 0.2)" : "none",
+          }}
         >
           Real-time Recording
         </button>
         <button
           onClick={() => onModeChange("upload")}
-          className={`px-6 py-2 rounded-md font-medium transition-all duration-200 ${
-            mode === "upload"
-              ? "bg-blue-600 text-white shadow-md"
-              : "text-gray-600 hover:text-gray-800"
-          }`}
           aria-pressed={mode === "upload"}
+          style={{
+            padding: "0.5rem 1.5rem",
+            borderRadius: "0.375rem",
+            fontWeight: 500,
+            transition: "all 0.2s",
+            cursor: "pointer",
+            backgroundColor: mode === "upload" ? "#2563EB" : "transparent", // blue-600
+            color: mode === "upload" ? "#FFFFFF" : "#4B5563", // white or gray-600
+            boxShadow:
+              mode === "upload" ? "0 1px 3px rgba(0, 0, 0, 0.2)" : "none",
+          }}
         >
           File Upload
         </button>

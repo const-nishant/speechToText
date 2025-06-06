@@ -16,43 +16,70 @@ const TranscriptDisplay = ({
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-800">Transcript</h3>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h3
+          style={{
+            fontSize: "1.125rem",
+            fontWeight: "600",
+            color: "#1f2937",
+          }}
+        >
+          Transcript
+        </h3>
         {transcript && (
           <button
             onClick={onClear}
-            className="text-gray-500 hover:text-red-600 transition-colors duration-200 text-sm font-medium"
             aria-label="Clear transcript"
+            className="transcript-clear-button"
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#dc2626")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#6b7280")}
           >
             Clear
           </button>
         )}
       </div>
 
-      <div className="border border-gray-200 rounded-lg p-6 min-h-48 bg-gray-50">
+      <div className="transcript-container">
         {transcript ? (
-          <div className="space-y-4">
-            <p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+          >
+            <p
+              style={{
+                color: "#1f2937",
+                lineHeight: "1.625",
+                whiteSpace: "pre-wrap",
+              }}
+            >
               {transcript}
             </p>
             {isRecording && (
-              <div className="flex items-center space-x-2 text-blue-600">
-                <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"></div>
-                <div
-                  className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-                  style={{ animationDelay: "0.1s" }}
-                ></div>
-                <div
-                  className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-                  style={{ animationDelay: "0.2s" }}
-                ></div>
+              <div className="loading-spinner">
+                <div className="loading-dot"></div>
+                <div className="loading-dot"></div>
+                <div className="loading-dot"></div>
               </div>
             )}
           </div>
         ) : (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-gray-500 text-center">{getPlaceholderText()}</p>
+          <div
+            style={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <p style={{ color: "#6b7280", textAlign: "center" }}>
+              {getPlaceholderText()}
+            </p>
           </div>
         )}
       </div>

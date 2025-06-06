@@ -30,45 +30,65 @@ const FileUpload = ({ onFileUpload, isProcessing, selectedLanguage }) => {
   };
 
   return (
-    <div className="text-center space-y-6">
-      <h3 className="text-lg font-semibold text-gray-800">Upload Audio File</h3>
+    <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+      <h3 className="file-upload-title">Upload Audio File</h3>
 
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 hover:border-blue-400 transition-colors duration-200">
+      <div
+        className="file-upload-container"
+        onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#60A5FA")} // blue-400
+        onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#D1D5DB")}
+      >
         <input
           ref={fileInputRef}
           type="file"
           accept=".mp3,.wav,audio/mp3,audio/wav"
           onChange={handleFileSelect}
-          className="hidden"
+          style={{ display: "none" }}
           aria-label="Upload audio file"
         />
 
         {!isProcessing ? (
-          <div className="space-y-4">
-            <div className="text-6xl text-gray-400">📁</div>
+          <div style={{ marginTop: "1.5rem" }}>
+            <div
+              style={{ fontSize: "3.75rem", color: "#9CA3AF" /* gray-400 */ }}
+            >
+              📁
+            </div>
             <div>
               <button
                 onClick={handleUploadClick}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                className="upload-button"
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#1D4ED8")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#2563EB")
+                }
               >
                 Choose Audio File
               </button>
             </div>
-            <p className="text-gray-600">
+            <p style={{ color: "#4B5563", marginTop: "1rem" /* gray-600 */ }}>
               Support for MP3 and WAV files up to 50MB
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
-            <div className="animate-spin text-6xl">⚙️</div>
-            <p className="text-blue-600 font-medium">
+          <div style={{ marginTop: "1.5rem" }}>
+            <div
+              style={{
+                fontSize: "3.75rem",
+                animation: "spin 1s linear infinite",
+              }}
+            >
+              ⚙️
+            </div>
+            <p
+              style={{ color: "#2563EB", fontWeight: "500", marginTop: "1rem" }}
+            >
               Processing your audio file...
             </p>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div
-                className="bg-blue-600 h-2 rounded-full animate-pulse"
-                style={{ width: "60%" }}
-              ></div>
+            <div className="progress" style={{}}>
+              <div className="progress-bar"></div>
             </div>
           </div>
         )}

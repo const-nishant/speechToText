@@ -111,7 +111,6 @@ export const App = () => {
 
   const handleClearTranscript = () => {
     setTranscript("");
-    
   };
 
   const handleCopy = async () => {
@@ -160,18 +159,46 @@ export const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(to bottom right, #eff6ff, #e0e7ff)", // from-blue-50 to-indigo-100
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "64rem",
+          margin: "0 auto",
+          padding: "2rem 1rem",
+        }}
+      >
+        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+          <h1
+            style={{
+              fontSize: "2.25rem",
+              fontWeight: "bold",
+              color: "#1f2937",
+              marginBottom: "0.5rem",
+            }}
+          >
             Voice Transcription
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p style={{ color: "#4b5563", fontSize: "1.125rem" }}>
             Convert speech to text in multiple languages
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8 space-y-8">
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "1rem",
+            boxShadow: "0 10px 15px rgba(0,0,0,0.1)",
+            padding: "2rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "2rem",
+          }}
+        >
           {/* Mode Toggle */}
           <ModeToggle mode={mode} onModeChange={setMode} />
 
@@ -181,16 +208,19 @@ export const App = () => {
             onLanguageChange={handleLanguageChange}
           />
 
-          <div className="border-t border-gray-200 pt-8">
+          <div
+            style={{
+              borderTop: "1px solid #e5e7eb",
+              paddingTop: "2rem",
+            }}
+          >
             {mode === "realtime" ? (
-              /* Recording Controls */
               <RecordingControls
                 isRecording={isRecording}
                 onStartRecording={startRecording}
                 onStopRecording={stopRecording}
               />
             ) : (
-              /* File Upload */
               <FileUpload
                 onFileUpload={handleFileUpload}
                 isProcessing={isProcessing}
@@ -199,46 +229,126 @@ export const App = () => {
             )}
           </div>
 
-          {/* Transcript Display */}
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold text-gray-800">
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "1.125rem",
+                  fontWeight: "600",
+                  color: "#1f2937",
+                }}
+              >
                 Transcript
               </h3>
               {transcript && (
                 <button
                   onClick={handleClearTranscript}
-                  className="text-gray-500 hover:text-red-600 transition-colors duration-200 text-sm font-medium"
                   aria-label="Clear transcript"
+                  style={{
+                    color: "#6b7280",
+                    fontSize: "0.875rem",
+                    fontWeight: "500",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#dc2626")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#6b7280")
+                  }
                 >
                   Clear
                 </button>
               )}
             </div>
 
-            <div className="border border-gray-200 rounded-lg p-6 min-h-48 bg-gray-50">
+            <div
+              style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: "0.5rem",
+                padding: "1.5rem",
+                minHeight: "12rem",
+                backgroundColor: "#f9fafb",
+              }}
+            >
               {transcript ? (
-                <div className="space-y-4">
-                  <p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                  }}
+                >
+                  <p
+                    style={{
+                      color: "#1f2937",
+                      lineHeight: "1.625",
+                      whiteSpace: "pre-wrap",
+                    }}
+                  >
                     {transcript}
                   </p>
                   {isRecording && (
-                    <div className="flex items-center space-x-2 text-blue-600">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"></div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        color: "#2563eb",
+                      }}
+                    >
                       <div
-                        className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.1s" }}
+                        style={{
+                          width: "0.5rem",
+                          height: "0.5rem",
+                          backgroundColor: "#2563eb",
+                          borderRadius: "9999px",
+                          animation: "bounce 1.5s infinite",
+                        }}
                       ></div>
                       <div
-                        className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.2s" }}
+                        style={{
+                          width: "0.5rem",
+                          height: "0.5rem",
+                          backgroundColor: "#2563eb",
+                          borderRadius: "9999px",
+                          animation: "bounce 1.5s infinite",
+                          animationDelay: "0.1s",
+                        }}
+                      ></div>
+                      <div
+                        style={{
+                          width: "0.5rem",
+                          height: "0.5rem",
+                          backgroundColor: "#2563eb",
+                          borderRadius: "9999px",
+                          animation: "bounce 1.5s infinite",
+                          animationDelay: "0.2s",
+                        }}
                       ></div>
                     </div>
                   )}
                 </div>
               ) : (
-                <div className="flex items-center justify-center h-full">
-                  <p className="text-gray-500 text-center">
+                <div
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <p style={{ color: "#6b7280", textAlign: "center" }}>
                     {getPlaceholderText()}
                   </p>
                 </div>
@@ -246,17 +356,50 @@ export const App = () => {
             </div>
           </div>
 
-          {/* Export Controls */}
           {transcript && (
-            <div className="border-t border-gray-200 pt-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">
+            <div
+              style={{ borderTop: "1px solid #e5e7eb", paddingTop: "1.5rem" }}
+            >
+              <h3
+                style={{
+                  fontSize: "1.125rem",
+                  fontWeight: "600",
+                  color: "#1f2937",
+                  textAlign: "center",
+                  marginBottom: "1rem",
+                }}
+              >
                 Export Options
               </h3>
-              <div className="flex justify-center space-x-4">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "1rem",
+                }}
+              >
                 <button
                   onClick={handleCopy}
-                  className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300"
                   aria-label="Copy transcript to clipboard"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    backgroundColor: "#4b5563",
+                    color: "white",
+                    fontWeight: "500",
+                    padding: "0.5rem 1rem",
+                    borderRadius: "0.5rem",
+                    border: "none",
+                    cursor: "pointer",
+                    transition: "transform 0.2s",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#374151")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#4b5563")
+                  }
                 >
                   <span>📋</span>
                   <span>Copy</span>
@@ -264,8 +407,26 @@ export const App = () => {
 
                 <button
                   onClick={handleSave}
-                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300"
                   aria-label="Save transcript as file"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    backgroundColor: "#16a34a",
+                    color: "white",
+                    fontWeight: "500",
+                    padding: "0.5rem 1rem",
+                    borderRadius: "0.5rem",
+                    border: "none",
+                    cursor: "pointer",
+                    transition: "transform 0.2s",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#15803d")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#16a34a")
+                  }
                 >
                   <span>💾</span>
                   <span>Save</span>
@@ -275,7 +436,9 @@ export const App = () => {
           )}
         </div>
 
-        <div className="text-center mt-8 text-gray-500">
+        <div
+          style={{ textAlign: "center", marginTop: "2rem", color: "#6b7280" }}
+        >
           <p>Supports English, Spanish, French, Hindi, and Mandarin</p>
         </div>
       </div>
