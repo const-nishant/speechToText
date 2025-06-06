@@ -6,7 +6,8 @@ const ModeToggle = ({ mode, onModeChange }) => {
       <div
         style={{
           backgroundColor: "#F3F4F6", // Tailwind's gray-100
-          padding: "0.25rem",
+          padding: "0.25rem ",
+          gap: "0.5rem",
           borderRadius: "0.5rem",
           display: "flex",
         }}
@@ -15,9 +16,10 @@ const ModeToggle = ({ mode, onModeChange }) => {
           onClick={() => onModeChange("realtime")}
           aria-pressed={mode === "realtime"}
           style={{
-            padding: "0.5rem 1.5rem",
+            padding: "0.8rem 1.0rem",
             borderRadius: "0.375rem",
-            fontWeight: 500,
+            borderColor: mode === "realtime" ? "transparent" : "#4B5563", // gray-600
+            fontWeight: 600,
             transition: "all 0.2s",
             cursor: "pointer",
             backgroundColor: mode === "realtime" ? "#2563EB" : "transparent", // blue-600
@@ -34,6 +36,7 @@ const ModeToggle = ({ mode, onModeChange }) => {
           style={{
             padding: "0.5rem 1.5rem",
             borderRadius: "0.375rem",
+            borderColor: mode === "upload" ? "transparent" : "#4B5563", // gray-600
             fontWeight: 500,
             transition: "all 0.2s",
             cursor: "pointer",
