@@ -10,6 +10,16 @@ A cross-platform Electron desktop application for converting speech to text usin
 - 📋 **Export Options**: Copy or save the transcript as a text file.
 - ⚡ **Modern UI**: Responsive and clean interface using Tailwind CSS.
 
+## Screenshots
+
+### Real-time Recording Mode
+
+![Real-time Recording](./assets/image.png)
+
+### File Upload Mode
+
+![File Upload](./assets/preview.png)
+
 ## Getting Started
 
 ### Prerequisites
@@ -20,6 +30,7 @@ A cross-platform Electron desktop application for converting speech to text usin
 ### Installation
 
 1. Clone the repository:
+
    ```sh
    git clone https://github.com/const-nishant/speechtotext.git
    cd speechtotext
@@ -33,6 +44,7 @@ A cross-platform Electron desktop application for converting speech to text usin
 ### Running the App
 
 Start the Electron app in development mode:
+
 ```sh
 npm start
 ```
@@ -42,9 +54,11 @@ npm start
 ### Building for Production
 
 To package the app for distribution:
+
 ```sh
 npm run make
 ```
+
 The output will be in the `out/` directory.
 
 ## Project Structure
@@ -68,4 +82,5 @@ forge.config.js           # Electron Forge config
 - **Backend**: Update API endpoints in `src/App.jsx` as needed.
 
 ## Note
--Tailwind doesn't work for this project 
+
+-Tailwind doesn't work for this project
