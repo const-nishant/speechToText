@@ -81,6 +81,10 @@ forge.config.js           # Electron Forge config
 - **Languages**: Add or remove languages in `src/components/LanguageSelector.jsx`.
 - **Backend**: Update API endpoints in `src/App.jsx` as needed.
 
+## Backend
+
+`https://github.com/const-nishant/speechtotext-backend`
+
 ## Note
 
 -Tailwind doesn't work for this project
