@@ -83,7 +83,7 @@ forge.config.js           # Electron Forge config
 
 ## Backend
 
-`https://github.com/const-nishant/speechtotext-backend`
+https://github.com/const-nishant/speechtotext-backend
 
 ## Note
 
